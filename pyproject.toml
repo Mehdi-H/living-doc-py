@@ -1,0 +1,18 @@
+[project]
+name = "living_doc_py"
+description = "to poke living-documentation concepts in Python"
+version = "0.1.0"
+authors = [
+    { name = "Mehdi Houacine", email = "mehdihouacine7@gmail.com" }
+]
+dependencies = [
+    "wheel"
+]
+
+[tool.setuptools]
+py-modules = ["living_doc"]
+
+[project.optional-dependencies]
+tests = [
+  'pytest >= 7.3.1'
+]
