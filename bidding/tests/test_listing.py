@@ -3,6 +3,7 @@ import pytest
 from bidding.entities import Listing
 from bidding.value_objects import Money, Seller, UUID
 
+
 @pytest.mark.unit
 def test_listing_initial_price():
     seller = Seller(id=UUID.v4())

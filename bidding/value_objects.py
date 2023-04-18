@@ -12,27 +12,33 @@ UUID.v4 = uuid.uuid4
 
 @Glossary
 @dataclass
-class Bidder():
+class Bidder:
     """A party who make a Bid (see Bid)"""
+
     id: UUID
+
 
 @Glossary
 @dataclass
-class Seller():
+class Seller:
     """A party who presents an object to an auction in order to sell it"""
+
     id: UUID
+
 
 @dataclass
 @Glossary
-class Bid():
+class Bid:
     """Offer of an amount higher than the opening bid or previous offers, during an auction"""
-    price: 'Money'
+
+    price: "Money"
     bidder: Bidder
     placed_at: datetime = field(default_factory=datetime.utcnow)
 
+
 @total_ordering
 @dataclass
-class Money():
+class Money:
     amount: int = 0
     currency: str = "USD"
 
