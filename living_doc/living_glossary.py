@@ -1,10 +1,7 @@
 import ast
 from dataclasses import dataclass
-from typing import Set
-
-from living_doc.annotations import Glossary
-
 from datetime import date
+from typing import Set
 
 
 @dataclass(frozen=True)
@@ -20,7 +17,7 @@ Concepts = Set[Concept]
 def find_concepts_from(
     source_code: str,
     origin: str = __file__,
-    glossary_decorator: str = Glossary.__name__,
+    glossary_decorator: str = "Glossary",
 ) -> Concepts:
     concepts: Concepts = set()
     tree = ast.parse(source_code)
