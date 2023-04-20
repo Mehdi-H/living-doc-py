@@ -29,12 +29,16 @@ install-dependencies-all: install-dependencies-run install-dependencies-tests in
 unit-tests:
 	pytest -v -m unit
 
+.PHONY: build
+build:
+	python -m build --wheel
+
 clean:
 	rm -rf tests/__pycache__/ build/
 
-USAGE.md: Makefile
+usage:
 	echo -e "# Usage\n\n" > USAGE.md
-	make help | head -n -1 | tail -n+2 | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" >> USAGE.md
+	make -s help | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" >> USAGE.md
 
 .PHONY: format  ## ⚫ to format python code with Black formatter
 format:
