@@ -16,7 +16,7 @@ install-dependencies-run:
 
 .PHONY: install-dependencies-dev  ## to install python dev dependencies
 install-dependencies-dev:
-	pip install  .[dev]
+	pip install .[dev]
 
 .PHONY: install-dependencies-tests  ## to install python test dependencies
 install-dependencies-tests:
@@ -39,3 +39,7 @@ USAGE.md: Makefile
 .PHONY: format  ## ⚫ to format python code with Black formatter
 format:
 	black .
+
+.PHONY: lint  ## 🍓 to lint python code
+lint:
+	ruff check .
