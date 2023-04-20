@@ -29,12 +29,12 @@ install-dependencies-all: install-dependencies-run install-dependencies-tests in
 unit-tests:
 	pytest -v -m unit
 
-.PHONY: build
+.PHONY: build  ## 🤸 to build a wheel distribution
 build:
 	python -m build --wheel
 
 clean:
-	rm -rf tests/__pycache__/ build/
+	rm -rf tests/__pycache__/ .pytest_cache/ build/ dist/ *.egg-info/ venv/
 
 usage:
 	echo -e "# Usage\n\n" > USAGE.md
@@ -47,3 +47,6 @@ format:
 .PHONY: lint  ## 🍓 to lint python code
 lint:
 	ruff check .
+
+demo:
+	python living_doc/app.py demo
