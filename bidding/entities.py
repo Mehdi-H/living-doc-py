@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import datetime
+from typing import List
 
 from living_doc.annotations import Glossary
 
@@ -14,5 +15,5 @@ class Listing:
     seller: Seller
     initial_price: Money
     ends_at: datetime
-    bids: list[Bid] = field(default_factory=list)
+    bids: List[Bid] = field(default_factory=list)
     current_price: Money = field(init=False)
