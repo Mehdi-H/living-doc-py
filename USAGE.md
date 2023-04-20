@@ -8,4 +8,5 @@ Please use 'make <target>' where <target> is one of
 - install-dependencies-dev        to install python dev dependencies
 - install-dependencies-run        to install python run dependencies
 - install-dependencies-tests      to install python test dependencies
+- lint                            🍓 to lint python code
 - unit-tests                      to run unit tests 
