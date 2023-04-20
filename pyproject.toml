@@ -9,13 +9,17 @@ dependencies = [
     "wheel"
 ]
 
+[project.optional-dependencies]
+tests = [
+    'pytest >= 7.3.1',
+    'click >= 8.1.3',
+    'xlsxwriter >= 3.1.0',
+]
+dev=['black', 'ruff>= 0.0.262']
+
 [tool.setuptools]
 py-modules = ["living_doc"]
 
-[project.optional-dependencies]
-tests = [
-  'pytest >= 7.3.1',
-  'click >= 8.1.3',
-  'xlsxwriter >= 3.1.0',
-]
-dev=['black']
+[tool.ruff]
+select = ["E", "F"]
+ignore = ["E501"]
