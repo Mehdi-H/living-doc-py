@@ -12,11 +12,11 @@ from living_doc.living_glossary import (
 @dataclass
 class ExportStrategy(ABC):
     @abstractmethod
-    def to_glossary(self, concepts: Concepts) -> Union[str, None]:
+    def to_glossary(cls, concepts: Concepts) -> Union[str, None]:
         pass
 
     @abstractmethod
-    def write_glossary_to(self, file: str) -> None:
+    def write_glossary_to(cls, file: str, concepts: Concepts) -> None:
         pass
 
 
@@ -25,32 +25,32 @@ class Glossary:
     strategy: ExportStrategy
     concepts: Concepts
 
-    def to_glossary(self) -> Union[str, None]:
-        return self.strategy.to_glossary(self.concepts)
+    def to_glossary(cls) -> Union[str, None]:
+        return cls.strategy.to_glossary(cls.concepts)
 
-    def write_glossary_to(self, file) -> None:
-        self.strategy.write_glossary_to(file, self.concepts)
+    def write_glossary_to(cls, file) -> None:
+        cls.strategy.write_glossary_to(file, cls.concepts)
 
 
 @dataclass
 class MarkdownListStrategy(ExportStrategy):
     @classmethod
-    def to_glossary(self, concepts: Concepts) -> str:
+    def to_glossary(cls, concepts: Concepts) -> str:
         return concepts_to_markdown_list(concepts)
 
     @classmethod
-    def write_glossary_to(self, file, concepts) -> None:
+    def write_glossary_to(cls, file, concepts) -> None:
         with open(file, "w") as glossary:
-            glossary.write(self.to_glossary(concepts))
+            glossary.write(cls.to_glossary(concepts))
 
 
 @dataclass
 class MarkdownTableStrategy(ExportStrategy):
     @classmethod
-    def to_glossary(self, concepts: Concepts) -> str:
+    def to_glossary(cls, concepts: Concepts) -> str:
         return concepts_to_markdown_table(concepts)
 
     @classmethod
-    def write_glossary_to(self, file, concepts) -> None:
+    def write_glossary_to(cls, file, concepts) -> None:
         with open(file, "w") as glossary:
-            glossary.write(self.to_glossary(concepts))
+            glossary.write(cls.to_glossary(concepts))
