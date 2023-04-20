@@ -1,16 +1,16 @@
 from dataclasses import astuple
 from datetime import date
+
 import click
 import xlsxwriter
+
 from living_doc.glossary_strategy import (
     MarkdownListStrategy,
     Glossary,
     MarkdownTableStrategy,
 )
-
 from living_doc.living_glossary import (
     concepts_to_markdown_list,
-    concepts_to_markdown_table,
     find_concepts_from,
 )
 
@@ -77,8 +77,8 @@ class Event:
     worksheet = workbook.add_worksheet()
     row, col = 0, 0
     worksheet.write(row, col, "Glossary")
-    worksheet.write(row +1, col, f"Generated on {date.today()}")
-    
+    worksheet.write(row + 1, col, f"Generated on {date.today()}")
+
     row, col = 3, 0
     for name, desc, _ in (astuple(concept) for concept in concepts):
         worksheet.write(row, col, name)
