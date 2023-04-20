@@ -9,7 +9,7 @@ from living_doc.living_glossary import (
 )
 
 
-@dataclass(kw_only=True)
+@dataclass
 class ExportStrategy(ABC):
     @abstractmethod
     def to_glossary(self, concepts: Concepts) -> Union[str, None]:
@@ -32,7 +32,7 @@ class Glossary:
         self.strategy.write_glossary_to(file, self.concepts)
 
 
-@dataclass(kw_only=True)
+@dataclass
 class MarkdownListStrategy(ExportStrategy):
     @classmethod
     def to_glossary(self, concepts: Concepts) -> str:
@@ -44,7 +44,7 @@ class MarkdownListStrategy(ExportStrategy):
             glossary.write(self.to_glossary(concepts))
 
 
-@dataclass(kw_only=True)
+@dataclass
 class MarkdownTableStrategy(ExportStrategy):
     @classmethod
     def to_glossary(self, concepts: Concepts) -> str:
