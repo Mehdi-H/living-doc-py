@@ -9,7 +9,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-tests = ["pytest >= 7.3.1"]
+tests = ["pytest >= 7.3.1", "behave >= 1.2.6", "behave-html-pretty-formatter >= 1.8.2"]
 dev = [
     "black >= 23.3.0",
     "build >= 0.10.0",
@@ -23,6 +23,8 @@ dev = [
 packages = ["living_doc"]
 
 [tool.setuptools_scm]
+version_scheme = "post-release"
+local_scheme = "no-local-version"
 write_to = "living_doc/_version.py"
 
 [build-system]

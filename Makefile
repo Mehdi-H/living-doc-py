@@ -26,15 +26,19 @@ install-dependencies-tests:
 install-dependencies-all: install-dependencies-run install-dependencies-tests install-dependencies-dev
 
 .PHONY: unit-tests  ## to run unit tests 
-unit-tests:
+unit-tests: clean
 	pytest -v -m unit
+
+.PHONY: func-tests  ## to run functional tests
+func-tests: clean
+	behave -f html -f steps -o test-reports/behave-func-tests.html living_doc/tests/features/
 
 .PHONY: build  ## 🤸 to build a wheel distribution
 build:
 	python -m build --wheel
 
 clean:
-	rm -rf tests/__pycache__/ .pytest_cache/ build/ dist/ *.egg-info/ venv/
+	rm -rf tests/__pycache__/ living_doc/__pycache__/ .pytest_cache/ build/ dist/ *.egg-info/ venv/
 
 usage:
 	echo -e "# Usage\n\n" > USAGE.md
