@@ -1,23 +1,31 @@
-[project]
-name = "living_doc_py"
-description = "to poke living-documentation concepts in Python"
-dynamic = ["version"]
-authors = [{ name = "Mehdi Houacine", email = "mehdihouacine7@gmail.com" }]
-dependencies = [
-    "click >= 8.1.3",
-    "xlsxwriter >= 3.1.0"
-]
+[tool.poetry]
+name = "living-doc-py"
+version = "0.1.0"
+description = ""
+authors = ["Mehdi-H <mehdihouacine7@gmail.com>"]
+readme = "README.md"
+packages = [{include = "living_doc"}]
 
-[project.optional-dependencies]
-tests = ["pytest >= 7.3.1", "behave >= 1.2.6", "behave-html-pretty-formatter >= 1.8.2"]
-dev = [
-    "black >= 23.3.0",
-    "build >= 0.10.0",
-    "ruff >= 0.0.262",
-    "setuptools_scm[toml] >= 6.2",
-    "wheel >= 0.40.0",
-    "twine >= 4.0.2"
-]
+[tool.poetry.dependencies]
+python = "^3.11"
+click = "^8.1.3"
+xlsxwriter = "^3.1.0"
+
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+build = "^0.10.0"
+ruff = "^0.0.270"
+wheel = "^0.40.0"
+twine = "^4.0.2"
+setuptools-scm = {extras = ["toml"], version = "^7.1.0"}
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.3.1"
+behave = "^1.2.6"
+behave-html-pretty-formatter = "^1.9.1"
 
 [tool.setuptools]
 packages = ["living_doc"]
@@ -27,13 +35,10 @@ version_scheme = "post-release"
 local_scheme = "no-local-version"
 write_to = "living_doc/_version.py"
 
-[build-system]
-requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[project.scripts]
-living-glossary = "living_doc.app:cli"
-
 [tool.ruff]
 select = ["E", "F"]
 ignore = ["E501"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

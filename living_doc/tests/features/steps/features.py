@@ -1,4 +1,4 @@
-from behave import *
+from behave import given, when, then
 
 from living_doc.glossary_strategy import Glossary, MarkdownListStrategy
 from living_doc.living_glossary import find_concepts_from

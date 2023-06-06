@@ -3,6 +3,9 @@ SHELL := /bin/bash
 .ONESHELL:
 .SILENT:
 
+.EXPORT_ALL_VARIABLES:
+PYTHON_VERSION:=3.11.2
+
 .DEFAULT_GOAL: help
 
 .PHONY: help
@@ -10,32 +13,45 @@ help: USAGE.md
 	@echo -e "Please use 'make <target>' where <target> is one of\n"
 	@grep -E '^\.PHONY: [a-zA-Z_-]+ .*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = "(: |##)"}; {printf "- \033[36m%-30s\033[0m %s\n", $$2, $$3}' | sort
 
+.PHONY: venv  ## 🥽 to setup a virtualenv for this project
+venv:
+	echo "[*] Using Python ${PYTHON_VERSION} 🐍 ..."
+	poetry env use ${PYTHON_VERSION}
+
+.PHONY: install-dependencies  ## to install all python dependencies
+install-dependencies: venv
+	poetry install
+
 .PHONY: install-dependencies-run  ## to install python run dependencies
 install-dependencies-run:
-	pip install -e .
+	poetry install --without dev
 
 .PHONY: install-dependencies-dev  ## to install python dev dependencies
 install-dependencies-dev:
-	pip install .[dev]
+	poetry install --with dev
 
 .PHONY: install-dependencies-tests  ## to install python test dependencies
 install-dependencies-tests:
 	pip install .[tests]
 
-.PHONY: install-dependencies-all  ## to install all python dependencies (run+tests)
-install-dependencies-all: install-dependencies-run install-dependencies-tests install-dependencies-dev
-
 .PHONY: unit-tests  ## to run unit tests 
 unit-tests: clean
-	pytest -v -m unit
+	poetry run pytest -v -m unit
 
 .PHONY: func-tests  ## to run functional tests
 func-tests: clean
-	behave -f html -f steps -o test-reports/behave-func-tests.html living_doc/tests/features/
+	poetry run behave \
+		-f html \
+		-f steps \
+		-o test-reports/behave-func-tests.html \
+			living_doc/tests/features/
+
+.PHONY: tests  ## to run all tests
+tests: unit-tests func-tests
 
 .PHONY: build  ## 🤸 to build a wheel distribution
 build:
-	python -m build --wheel
+	poetry build
 
 clean:
 	rm -rf tests/__pycache__/ living_doc/__pycache__/ .pytest_cache/ build/ dist/ *.egg-info/ venv/
@@ -46,11 +62,11 @@ usage:
 
 .PHONY: format  ## ⚫ to format python code with Black formatter
 format:
-	black .
+	poetry run black .
 
 .PHONY: lint  ## 🍓 to lint python code
 lint:
-	ruff check .
+	poetry run ruff check .
 
 demo:
-	python living_doc/app.py demo
+	poetry run python living_doc/app.py demo
